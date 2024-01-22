@@ -1,0 +1,33 @@
+<%= form_with(model: chat) do |form| %>
+  <% if chat.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(chat.errors.count, "error") %> prohibited this chat from being saved:</h2>
+
+      <ul>
+        <% chat.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+  <%= form.label :chat_type, style: "display: block" %>
+  <%= form.select :chat_type, ['private', 'group'], {}, { class: "your-css-class" } %>
+  </div>
+
+  <div>
+    <%= form.label :user_ids, "Add Users" %><br />
+    <%= form.collection_select :user_ids, User.all, :id, :name, {}, { multiple: true } %>
+  </div>
+
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
