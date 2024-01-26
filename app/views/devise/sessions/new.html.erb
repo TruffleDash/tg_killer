@@ -1,27 +1,32 @@
-<h2 class="text-3xl font-bold underline text-blue-800">Log in</h2>
+<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">  
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <div class="w-24 h-24 bg-blue rounded-full mx-auto"></div>
+    <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-darkPurple">Log in</h2>
+  <div>
+  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm text-darkBlue">
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "space-y-6" }) do |f| %>
+      <div>
+        <%= f.label :email, class: "block text-sm font-medium leading-6" %>
+        <%= f.email_field :email, autocomplete: "email", required: true, class: "block w-full rounded-md border-0 py-1.5 px-2.5 shadow-sm ring-1 ring-inset ring-blue placeholder:text-blue focus:ring-2 focus:ring-inset focus:ring-blue sm:text-sm sm:leading-6" %>
+      </div>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "bg-white bg-gradient-to-r from-blue-200 to-purple-200 p-8 rounded-lg" }) do |f| %>
-  <div class="field mb-4">
-    <%= f.label :email, class: "block text-blue-800" %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "w-full p-2 border border-gray-300 rounded" %>
+      <div>
+        <%= f.label :password,  class: "block text-sm font-medium leading-6" %>
+        <%= f.password_field :password, autocomplete: "current-password", required: true, class: "block w-full rounded-md border-0 py-1.5 px-2.5 shadow-sm ring-1 ring-inset ring-blue placeholder:text-blue focus:ring-2 focus:ring-inset focus:ring-blue sm:text-sm sm:leading-6" %>
+      </div>
+
+      <div class="flex items-center justify-between">
+        <% if devise_mapping.rememberable? %>
+          <div class="flex items-center">
+            <%= f.check_box :remember_me,  class: "text-blue form-checkbox h-5 w-5"  %>
+            <%= f.label :remember_me, class: "ml-2 block text-sm font-medium leading-5 text-darkBlue"  %>
+          </div>
+        <% end %>
+        <%= f.button "Log in", class: "bg-purple text-white py-2 px-9 rounded hover:bg-darkPurple" %>
+        <% end %>
+      </div>
+      <div class="py-3">
+        <%= render "devise/shared/links" %>
+      </div>
   </div>
-
-  <div class="field mb-4">
-    <%= f.label :password, class: "block text-blue-800" %><br />
-    <%= f.password_field :password, autocomplete: "current-password", class: "w-full p-2 border border-gray-300 rounded" %>
-  </div>
-
-  <% if devise_mapping.rememberable? %>
-    <div class="field mb-4">
-      <%= f.check_box :remember_me, class: "mr-2" %>
-      <%= f.label :remember_me, class: "text-blue-800" %>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in", class: "bg-purple-800 text-white py-2 px-4 rounded hover:bg-purple-700" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
-
+</div>

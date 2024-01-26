@@ -1,4 +1,8 @@
 body {
-  font-family: 'Helvetica', sans-serif;
-  color: #333;
+  font-family: 'Roboto', sans-serif;
+  color:#253E66;
 }
+input:focus {
+  outline: none;
+}
+
