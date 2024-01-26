@@ -1,18 +1,11 @@
-<div id="<%= dom_id chat %>">
-  <p>
-    <strong>Name:</strong>
-    <%= chat.name %>
-  </p>
-
-  <p>
-    <strong>Chat type:</strong>
-    <%= chat.chat_type %>
-  </p>
-
-    <p>
-    <strong>
-      <%= chat.user_ids %>
-    </strong>
-  </p>
-
+<div id="<%= dom_id chat %>", class="flex min-w-0 gap-x-4 bg-white shadow-lg rounded-lg p-6 mb-4" >
+  <div class="w-10 h-10 bg-blue rounded-full mx-auto"></div>
+  <div class="min-w-0 flex-auto"> 
+    <p class="text-sm font-semibold leading-6 text-darkBlue">
+      <%= chat.name %>
+    </p>
+      <p class="mt-1 truncate text-xs leading-5 text-blue">
+        <%= chat.users.pluck(:name).join(", ") %>
+    </p>
+  </div>
 </div>

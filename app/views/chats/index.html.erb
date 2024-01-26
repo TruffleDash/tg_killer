@@ -1,14 +1,13 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Chats</h1>
-
-<div id="chats">
-  <% @chats.each do |chat| %>
-    <%= render chat %>
-    <p>
-      <%= link_to "Show this chat", chat %>
-    </p>
-  <% end %>
+<div class="flex min-h-full flex-col px-6 py-12 lg:px-8"> 
+  <div>
+    <% @chats.each do |chat| %>
+      <%= render chat %>
+      <div class="py-6">
+        <%= link_to "Show this chat", chat %>
+      </div>
+    <% end %>
+  </div>
 </div>
+
 
 <%= link_to "New chat", new_chat_path %>

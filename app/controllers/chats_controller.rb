@@ -3,7 +3,7 @@ class ChatsController < ApplicationController
   before_action :authenticate_user!
   # GET /chats or /chats.json
   def index
-    @chats = Chat.all
+    @chats = current_user.chats
   end
 
   # GET /chats/1 or /chats/1.json
@@ -21,7 +21,7 @@ class ChatsController < ApplicationController
 
   # POST /chats or /chats.json
   def create
-    @chat = Chat.new(chat_params)
+    @chat = Chat.new(chat_params_with_current_user)
 
 
     respond_to do |format|
@@ -65,5 +65,9 @@ class ChatsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def chat_params
       params.require(:chat).permit(:name, :chat_type, user_ids: [])
+    end
+
+    def chat_params_with_current_user
+      chat_params.tap { _1[:user_ids] << current_user.id }
     end
 end
