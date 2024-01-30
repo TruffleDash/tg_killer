@@ -1,17 +1,16 @@
-<% @chat.messages.each do |message| %>
-  <div class="bg-white rounded-lg p-4 mb-2 shadow">
-    <strong class="text-darkBlue"><%= message.user.name %>:</strong> 
-    <span class="text-lightBlue"><%= message.body %></span>
-  </div>
+<%= turbo_frame_tag 'messages' do %>
+  <% @chat.messages.each do |message| %>
+    <%= render partial: 'messages/message', locals: { message: message } %>
+  <% end %>
 <% end %>
-
-<%= form_with(model: [ @chat, @chat.messages.build ], html: { class: "bg-white rounded-lg p-4 shadow mb-4" }) do |form| %>
+<%= form_with(model: [ @chat, @chat.messages.build ], html: { class: "bg-white rounded-lg p-4 shadow mb-4" }, data: {'controller' => 'chat'}) do |form| %>
   <div class="mb-2">
     <%= form.label :body, class: "block text-darkBlue font-medium mb-2" %>
-    <%= form.text_area :body, class: "w-full rounded border border-blue p-2" %>
+    <%= form.text_area :body, class: "w-full rounded border border-blue p-2", data: { 'chat-target' => 'source' } %>
   </div>
-  <%= form.submit "Send", class: "bg-purple text-white font-bold py-2 px-4 rounded hover:bg-darkPurple" %>
+  <%= form.submit "Send", class: "bg-purple text-white font-bold py-2 px-4 rounded hover:bg-darkPurple", data: { 'action' => 'chat#clear' } %>
 <% end %>
+
 
 <div class="mt-4">
   <%= link_to "Edit this chat", edit_chat_path(@chat), class: "text-blue hover:text-darkBlue" %> |
