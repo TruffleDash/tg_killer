@@ -1,4 +1,7 @@
 <div class="flex min-h-full flex-col px-6 py-12 lg:px-8"> 
+  <%= link_to new_chat_path, class: "h-18 bg-blue rounded-full flex justify-center items-center" do %>
+    <span class="text-white">+</span>
+  <% end %>
   <div>
     <% @chats.each do |chat| %>
      <%= link_to chat_path(chat) do %>
@@ -7,6 +10,3 @@
     <% end %>
   </div>
 </div>
-
-
-<%= link_to "New chat", new_chat_path %>

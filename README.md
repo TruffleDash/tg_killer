@@ -24,7 +24,6 @@
 
 - Rails 7.1
 - Ruby 3.2.2
-- Bun
 - Tailwind
 - Stimulus
 

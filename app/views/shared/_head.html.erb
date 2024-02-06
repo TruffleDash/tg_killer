@@ -1,10 +1,29 @@
-<div>
-  <a href="/">Tg</a>
-  <% if user_signed_in? %>
-    <%= link_to 'Log out', destroy_user_session_path, data: { turbo_method: :delete } %> 
-  <% else %>
-    <%= link_to 'Log in', new_user_session_path %> 
-    <span > or </span> 
-    <%= link_to 'Sign up', new_user_registration_path %> 
-  <% end %>
-</div>
+<nav class="bg-lightBlue">
+  <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+    <div class="relative flex h-16 items-center justify-between">
+      <div class="flex items-center">
+        <%= link_to root_path, class: "w-10 h-10 bg-blue rounded-full flex justify-center items-center" do %>
+          <span class="text-white text-lg">🏠</span>
+        <% end %>
+        <% if user_signed_in? %>
+          <div class="ml-4">
+            <%= link_to 'Private Chats', root_path, class: "text-white px-3 py-2 rounded-md text-sm font-medium" %>
+            <%= link_to 'Group Chats', root_path, class: "text-white px-3 py-2 rounded-md text-sm font-medium" %>
+            <%= link_to 'Users', root_path, class: "text-white px-3 py-2 rounded-md text-sm font-medium" %>
+          </div>
+        <% end %>
+      </div>
+      
+      <div class="ml-4 flex items-center md:ml-6">
+        <% if user_signed_in? %>
+          <%= link_to 'Profile', edit_user_registration_path, class: "text-white px-3 py-2 rounded-md text-sm font-medium" %>
+          <%= link_to 'Log out', destroy_user_session_path, class: "text-white px-3 py-2 rounded-md text-sm font-medium", data: { turbo_method: :delete } %> 
+        <% else %>
+          <%= link_to 'Log in', new_user_session_path, class: "text-white px-3 py-2 rounded-md text-sm font-medium" %> 
+          <span class="text-white px-3 py-2 rounded-md text-sm font-medium"> or </span> 
+          <%= link_to 'Sign up', new_user_registration_path, class: "text-white px-3 py-2 rounded-md text-sm font-medium" %> 
+        <% end %>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -68,6 +68,6 @@ class ChatsController < ApplicationController
     end
 
     def chat_params_with_current_user
-      chat_params.tap { _1[:user_ids] << current_user.id }
+      chat_params.tap { (_1[:user_ids] || []) << current_user.id }
     end
 end
