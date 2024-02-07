@@ -3,6 +3,7 @@
   <div class="min-w-0 flex-auto"> 
     <p class="text-sm font-semibold leading-6 text-darkBlue">
       <%= chat.name %>
+      <%= chat.chat_type %>
     </p>
       <p class="mt-1 truncate text-xs leading-5 text-blue">
         <%= chat.users.pluck(:name).join(", ") %>

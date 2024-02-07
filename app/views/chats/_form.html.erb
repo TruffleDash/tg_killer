@@ -1,33 +1,46 @@
-<%= form_with(model: chat) do |form| %>
-  <% if chat.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(chat.errors.count, "error") %> prohibited this chat from being saved:</h2>
-
-      <ul>
-        <% chat.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-md">
+    <h2 class="mt-6 text-center text-3xl font-extrabold text-darkBlue">Create Chat</h2>
+    <%= form_with(model: chat, html: { class: "mt-8 space-y-6" }, data: {'controller' => 'chat-new'}) do |form| %>
+      <div class="rounded-md shadow-sm -space-y-px">
+        <% if chat.errors.any? %>
+          <div class="text-red-500 text-sm">
+            <h3><%= pluralize(chat.errors.count, "error") %> prohibited this chat from being saved:</h3>
+            <ul>
+              <% chat.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+              <% end %>
+            </ul>
+          </div>
         <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+        <div>
+          <%= form.label :name, class: "sr-only" %>
+          <%= form.text_field :name, autofocus: true, autocomplete: "name", placeholder: "Chat Name", class: "appearance-none rounded-none relative block w-full px-3 py-2 border border-darkPurple placeholder-darkBlue text-darkBlue rounded-t-md focus:outline-none focus:ring-darkBlue focus:border-darkBlue focus:z-10 sm:text-sm" %>
+        </div>
+
+        <div>
+          <%= form.label :chat_type, class: "sr-only" %>
+          <%= form.select :chat_type, ['private', 'group'], {}, data: { 'chat-new-target' => 'chatType' }, class: "mt-3 appearance-none rounded-none relative block w-full px-3 py-2 border border-darkPurple placeholder-darkBlue text-darkBlue focus:outline-none focus:ring-darkBlue focus:border-darkBlue focus:z-10 sm:text-sm" %>
+        </div>
+
+        <div>
+          <h3 class="mt-4 mb-4 text-center">
+            <%= label_tag 'Add Users' %>
+          </h3>
+          <div data-chat-new-target="userSelect">
+            <% User.all.each do |user| %>
+              <div class="flex items-center mb-2">
+                <%= check_box_tag 'chat[user_ids][]', user.id, @chat.users.include?(user), id: dom_id(user), class: "h-4 w-4 text-purple focus:ring-purple border-lightBlue rounded", data: { 'action' => 'change->chat-new#updateChatType' } %>
+                <%= label_tag dom_id(user), user.name, class: "ml-2 block text-sm text-darkBlue" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+      <div>
+        <%= form.submit "Create Chat", class: "group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-purple hover:bg-darkPurple focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+      </div>
+    <% end %>
   </div>
-
-  <div>
-  <%= form.label :chat_type, style: "display: block" %>
-  <%= form.select :chat_type, ['private', 'group'], {}, { class: "your-css-class" } %>
-  </div>
-
-  <div>
-    <%= form.label :user_ids, "Add Users" %><br />
-    <%= form.collection_select :user_ids, User.all, :id, :name, {}, { multiple: true } %>
-  </div>
-
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

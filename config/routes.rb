@@ -4,4 +4,5 @@ Rails.application.routes.draw do
     resources :messages
   end
   devise_for :users
+  resources :users
 end
